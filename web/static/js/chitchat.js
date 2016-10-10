@@ -7,6 +7,7 @@ class Chat {
     this.userList = document.getElementById('user-list')
     this.messageInput = document.getElementById('new-message')
     this.messageList = document.getElementById('message-list')
+    this.hellouser = document.getElementById('hello-user')
     this.formatPresences = this.formatPresences.bind(this)
     this.renderPresences = this.renderPresences.bind(this)
     this.renderMessage = this.renderMessage.bind(this)
@@ -39,7 +40,7 @@ class Chat {
 
     // Set up input handlers
     this.messageInput.addEventListener('keypress', (e) => {
-      if (e.keyCode === 13 && this.messageInput != '') {
+      if (e.keyCode === 13 && this.messageInput.value != "") {
         this.room.push('message:new', this.messageInput.value)
         this.messageInput.value = ''
       }
@@ -71,7 +72,7 @@ class Chat {
         <small>online since ${presence.onlineAt}</small>
       </li>
     `).join('')
-
+    this.hellouser.innerHTML = this.user
     this.userList.innerHTML = html
   }
 
@@ -82,7 +83,7 @@ class Chat {
       <i>${this.formatTimestamp(message.timestamp)}</i>
       <p>${message.body}</b>
     `
-    this.messageList.appendChild(messageElement)
+    this.messageList.insertBefore(messageElement, this.messageList.firstChild)
     this.messageList.scrollTop = this.messageList.scrollHeight
   }
 }
